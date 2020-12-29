@@ -1,0 +1,47 @@
+<% flash.each do |type, message| %>
+  <div>
+   <%= message %>
+  </div>
+ <% end %>
+
+
+
+<h1>This is my first page</h2>
+	<%= link_to 'The employee form', new_employee_path %> 
+	<h2>Employees</h2>
+	<table>
+		<tr>
+			<th>Name</th>
+	    <th>E-mail</th>
+	    <th>Company</th>
+	    <th>Designation</th>
+	    <th>Phone Num</th>
+	    <th> Employee Details</th>
+	    <th>Active</th>
+    </tr>
+    <% @employees.each do |employee| %>
+	    <tr>
+	    	<td><%= employee.name %></td> 
+			  <td><%= employee.email %></td> 
+			  <td><%= employee.company %></td> 
+			  <td><%= employee.designation %></td> 
+			  <td><%= employee.phone_num %></td>
+			  <td> <%= link_to 'Employee Detail', employee %></td> 
+			  <td> 
+			 
+			  	 <% if employee.active? %>
+			  	   <%= link_to "Active",deactivate_employee_path(employee), method: :post %>
+			  	      
+			  	  
+			  	
+
+			  	  <% else %>
+			  	    <%= link_to "Deactive",activate_employee_path(employee), method: :post %>
+
+			  	  
+			  	  <% end %>
+			  		
+			  </td>
+			</tr> 
+		<% end %> 
+	</table>
