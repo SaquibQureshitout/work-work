@@ -1,35 +1,55 @@
- <%  @employee.errors.full_messages_for(:name).each do |message| %>
+<%  @employee.errors.full_messages_for(:name).each do |message| %>
+<div>
   <%= message %>
- <% end %>
+</div>
+
+<% end %>
 
 <%= form_with(model: @employee, local: true) do |f| %>
-  <%= f.label :name %>
- <%= f.text_field :name %>
+<%= f.label :name %>
+<%= f.text_field :name %>
 
- <% @employee.errors.full_messages_for(:email).each do |message| %>
-  <%= message %>
- <% end %>
+<% @employee.errors.full_messages_for(:email).each do |message| %>
+<div>
+	<%= message %>
+</div>
+  
+<% end %>
 
- <%= f.label :email %>
- <%= f.email_field :email %>
- <% @employee.errors.full_messages_for(:company).each do |message| %>
-  <%= message %>
- <% end %>
+<%= f.label :email %>
+<%= f.email_field :email %>
+<% @employee.errors.full_messages_for(:company).each do |message| %>
+<div> 
+	<%= message %>
+</div>
+ 
+<% end %>
 
- <%= f.label :company %>
-  <%= f.text_field :company %>
- <% @employee.errors.full_messages_for(:designation).each do |message| %>
+<%= f.label :company %>
+<%= f.text_field :company %>
+<% @employee.errors.full_messages_for(:designation).each do |message| %>
   <%= message %>
- <% end %>
+<% end %>
 
  <%= f.label :designation %>
  <%= f.text_field :designation %>
  <% @employee.errors.full_messages_for(:phone_num).each do |message| %>
- <%= message %>
+ <div>
+ 	<%= message %>
+ </div>
+   
  <% end %>
 
  <%= f.label :phone_num %>
  <%= f.number_field :phone_num %>
+
+
+ <%= f.label :password_digest %>
+ <%= f.text_field :password_digest %>
+ 
+ <% @employee.errors.full_messages_for(:password_digest).each do |message| %>
+  <%= message %>
+ <% end %>
 
  <%= f.submit "Submit" %>
 <% end %>

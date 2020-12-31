@@ -7,7 +7,10 @@
 
 
 <h1>This is my first page</h2>
-	<%= link_to 'The employee form', new_employee_path %> 
+	<% link_to 'Sign in', new_session_path %>
+	<%= link_to 'The employee form', new_employee_path %>
+	<%= link_to 'logout', logout_path(session), method: :delete  %>  
+
 	<h2>Employees</h2>
 	<table>
 		<tr>
@@ -18,6 +21,7 @@
 	    <th>Phone Num</th>
 	    <th> Employee Details</th>
 	    <th>Active</th>
+	    <th>Password</th>
     </tr>
     <% @employees.each do |employee| %>
 	    <tr>
@@ -27,21 +31,16 @@
 			  <td><%= employee.designation %></td> 
 			  <td><%= employee.phone_num %></td>
 			  <td> <%= link_to 'Employee Detail', employee %></td> 
-			  <td> 
-			 
-			  	 <% if employee.active? %>
-			  	   <%= link_to "Active",deactivate_employee_path(employee), method: :post %>
-			  	      
-			  	  
-			  	
 
-			  	  <% else %>
-			  	    <%= link_to "Deactive",activate_employee_path(employee), method: :post %>
+			  <td> <% if employee.active? %>
+			  	     <%= link_to "Active",deactivate_employee_path(employee), method: :post %>
+			  	   <% else %>
+			  	      <%= link_to "Deactive",activate_employee_path(employee), method: :post %>
+			  	   <% end %>
+			  	   	
+			 </td>
 
-			  	  
-			  	  <% end %>
-			  		
-			  </td>
+			  <td> <%= employee.password_digest %> </td>
 			</tr> 
 		<% end %> 
 	</table>
