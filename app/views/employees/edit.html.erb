@@ -1,0 +1,15 @@
+<h1>The profile page<h1>
+
+<h2>Change your Picture here</h2>
+
+
+<div>
+<%= form_with(model: @employee, local: true) do |f| %>  
+
+
+  <%= f.label :avatar %>
+  <%= f.file_field :avatar %>
+
+   <%= f.submit "Submit" %>
+</div >   
+  <% end %>

@@ -57,3 +57,6 @@ gem 'hirb'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'pry-rails'
+gem 'devise'
+gem 'will_paginate'
+gem 'image_processing'

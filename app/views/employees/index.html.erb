@@ -7,9 +7,10 @@
 
 
 <h1>This is my first page</h2>
-	<% link_to 'Sign in', new_session_path %>
+	<% link_to 'Sign in', new_employee_path %>
 	<%= link_to 'The employee form', new_employee_path %>
-	<%= link_to 'logout', logout_path(session), method: :delete  %>  
+	<%= link_to 'logout', destroy_employee_session_path, method: :delete  %> 
+	<%= link_to 'The Profile page', edit_employee_path(current_employee), method: :post %> 
 
 	<h2>Employees</h2>
 	<table>
@@ -22,8 +23,10 @@
 	    <th> Employee Details</th>
 	    <th>Active</th>
 	    <th>Password</th>
+	    <th>Picture</th>
     </tr>
-    <% @employees.each do |employee| %>
+  
+     <% @employees.each do |employee| %>
 	    <tr>
 	    	<td><%= employee.name %></td> 
 			  <td><%= employee.email %></td> 
@@ -39,8 +42,11 @@
 			  	   <% end %>
 			  	   	
 			 </td>
-
-			  <td> <%= employee.password_digest %> </td>
+			   <td> <%  %></td> 
+			   <% if employee.avatar.attached? %>
+			   <td> <%= image_tag url_for(employee.avatar) %></td> 
+			   <% end %> 
 			</tr> 
-		<% end %> 
+		<% end %>  
+		<%= will_paginate @employees %>  
 	</table>
