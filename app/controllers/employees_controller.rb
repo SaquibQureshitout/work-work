@@ -37,9 +37,9 @@ class EmployeesController < ApplicationController
   end
 
   def update
-  	@employee = Employee.find(params[:id])
+    @employee = Employee.find(params[:id])
   	@employee.update(avatar: params[:employee][:avatar])
-
+  	redirect_to edit_employee_path(@employee) 
   end 
 
 

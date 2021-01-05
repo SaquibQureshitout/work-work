@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   	member do
   		post 'deactivate'
   		post 'activate'
-      post 'edit'
+  		post 'edit'
   	end 
   end
 end 

@@ -25,19 +25,21 @@ class Employee < ApplicationRecord
  # def authenticate_password?(key)
    # key == password_digest
  # end 
-end
 
-def avatar
-  if employee.avatar.attached?
-    employee.avatar.purge
-    employee.avatar.attach(params[:avatar])
-  else
-    employee.avatar.attach(params[:avatar])
-  end
 
-  def current_employee
-    @current_employee = Employee.find(params[:id])
-  end
+# def avatar
+#   if employee.avatar.attached?
+#     employee.avatar.purge
+#     employee.avatar.attach(params[:avatar])
+#   else
+#     employee.avatar.attach(params[:avatar])
+#   end
+
+  # def current_employee
+  #   @current_employee = Employee.find(params[:id])
+  #     current_employee = Employee.current_employee
+
+  # end
 end 
 
 

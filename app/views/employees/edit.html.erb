@@ -2,8 +2,10 @@
 
 <h2>Change your Picture here</h2>
 
+<%= image_tag url_for(@employee.avatar) %>
 
-<div>
+<h3>The image of the employee </h3>
+
 <%= form_with(model: @employee, local: true) do |f| %>  
 
 
@@ -11,5 +13,5 @@
   <%= f.file_field :avatar %>
 
    <%= f.submit "Submit" %>
-</div >   
+  
   <% end %>
