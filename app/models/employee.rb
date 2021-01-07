@@ -12,12 +12,23 @@ class Employee < ApplicationRecord
 	validates :phone_num, presence: true, uniqueness: true, length: { is: 10 }
   validate  :companyname
   #validates :password_digest, presence: true, length: { minimum: 4, maximum: 14}
-
   def companyname
     if company != 'tout'
       errors.add(:company, 'Here only the employee of tout can fill this form' )
     end 
-	end
+  end
+
+  def admin?
+    role == 'admin'
+  end   
+end
+
+public
+
+def notadmin?
+     role != 'admin'
+end 
+
 
   
 #@employee.avatar.attach(params[:id])
@@ -40,7 +51,7 @@ class Employee < ApplicationRecord
   #     current_employee = Employee.current_employee
 
   # end
-end 
+
 
 
                        

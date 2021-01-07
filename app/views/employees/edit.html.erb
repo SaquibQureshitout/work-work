@@ -1,17 +1,1 @@
-<h1>The profile page<h1>
 
-<h2>Change your Picture here</h2>
-
-<%= image_tag url_for(@employee.avatar) %>
-
-<h3>The image of the employee </h3>
-
-<%= form_with(model: @employee, local: true) do |f| %>  
-
-
-  <%= f.label :avatar %>
-  <%= f.file_field :avatar %>
-
-   <%= f.submit "Submit" %>
-  
-  <% end %>

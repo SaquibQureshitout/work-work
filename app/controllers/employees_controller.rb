@@ -1,5 +1,5 @@
 class EmployeesController < ApplicationController
-	before_action :show_detail,  only: [:show, :deactivate, :activate]
+	before_action :show_detail,  only: [:show, :deactivate, :activate ]
 	#before_action :track_session, :reset_session
 	before_action :authenticate_employee!, :change_image
 
@@ -25,9 +25,9 @@ class EmployeesController < ApplicationController
 	def show
   end 
 
-  def edit
-  	@employee = Employee.find(params[:id])
-  	params.permit(:name, :email, :password, :company, :designation, :phone_num, :avatar)
+  def profile_page
+  	#@ = Employee.find(params[:id])
+  	#params.permit(:name, :email, :password, :company, :designation, :phone_num, :avatar)
 
   	#@employee = current_employee
   	#@employee.avatar.purge
@@ -36,11 +36,14 @@ class EmployeesController < ApplicationController
   	#@employee.update(avatar: params[:employee][:avatar])
   end
 
-  def update
-    @employee = Employee.find(params[:id])
-  	@employee.update(avatar: params[:employee][:avatar])
-  	redirect_to edit_employee_path(@employee) 
-  end 
+   def update
+  #   #@employee = Employee.find(params[:id])
+   	current_employee.update(avatar: params[:employee][:avatar])
+   	redirect_to profile_page_employees_path() 
+   end 
+   
+   def edit
+   end 
 
 
 
@@ -49,10 +52,9 @@ class EmployeesController < ApplicationController
   		 @employee.update(active: false)
   		 redirect_to employees_path, notice: 'its updated  to false'
      end
-  end 
+  end
 
-
-  def activate
+   def activate
   	if !@employee.active?
   		 @employee.update(active: true)
   		 redirect_to employees_path, notice: 'Its true now'

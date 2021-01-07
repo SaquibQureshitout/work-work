@@ -1,0 +1,49 @@
+<h1>The profile page</h1>
+<h4>Name</h4>
+<%= current_employee.name %>
+<h4>E-mail</h4>
+<%= current_employee.email %>
+<h4>Company</h4>
+<%= current_employee.company %>
+<h4>Designation</h4>
+<%= current_employee.designation %>
+<h4>Phone Number</h4>
+<%= current_employee.phone_num %>
+<h4>Status</h4>
+
+<%if  current_employee.active == false %>
+  <p>Deactive</p>
+<% else %>
+  <p>Active</p>
+ <% end %>
+
+ <div>
+ <%= link_to 'Edit Details', edit_employee_registration_path()%>
+</div>
+<div>
+<% link_to 'Employee Detail',current_employee%>
+</div>
+<h3>The image of the employee </h3>
+
+<%= image_tag url_for(current_employee.avatar) %>
+
+
+<!-- <div>
+<p>The current employee status</p>
+<% if current_employee.active? %>
+  <%= link_to "Active",deactivate_employee_path(current_employee), method: :post %>
+<% else %>
+  <%= link_to "Deactive",activate_employee_path(current_employee), method: :post %>
+<% end %>
+
+</div> -->
+<!-- <div>
+<%= form_with(model: current_employee, url: employee_path(current_employee), method: "patch",  local: true) do |f| %>  
+
+
+  <%= f.label :avatar %>
+  <%= f.file_field :avatar %>
+
+   <%= f.submit "Submit" %>
+ </div> 
+  <% end %> -->

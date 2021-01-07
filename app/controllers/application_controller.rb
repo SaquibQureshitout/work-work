@@ -5,8 +5,12 @@ class ApplicationController < ActionController::Base
 
 
 	def configure_permitted_parameters
-		devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :company, :designation, :phone_num, :avatar])
+		devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :company, :designation, :phone_num, :avatar, :role])
+		
+		devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email, :password, :company, :designation, :phone_num, :current_password, :avatar])
 	end
+
+end
 
 	# def current_employee
  #    return unless session[:employee_id]
@@ -31,7 +35,7 @@ class ApplicationController < ActionController::Base
 	#end 
 
 	#@employee.avatar.attach(params[:avatar])
-end 
+
 
 	
 	# helper_method :current_user

@@ -19,8 +19,10 @@ Rails.application.routes.draw do
   	member do
   		post 'deactivate'
   		post 'activate'
-  		post 'edit'
   	end 
+  	collection do
+  	  get 'profile_page'
+    end 
   end
 end 
   
