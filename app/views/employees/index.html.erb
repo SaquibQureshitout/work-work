@@ -41,9 +41,9 @@
            <% if employee.notadmin? %>
 			  	    <% if current_employee.admin?  %>
 			  	      <%if employee.active?  %>
-			  	          <%= link_to "Active",deactivate_employee_path(employee), method: :post %>
+			  	          <%= link_to "Active",deactivate_employee_path(employee), method: :post, remote:true %>
 			  	       <% else %>
-			  	          <%= link_to "Deactive",activate_employee_path(employee), method: :post %>
+			  	          <%= link_to "Deactive",activate_employee_path(employee), method: :post, remote:true %>
 			  	       <% end %>
 		          <% else %> 
 		             <% if employee.active == true %>
