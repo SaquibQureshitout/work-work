@@ -1,76 +1,130 @@
 <% flash.each do |type, message| %>
-  <div>
-   <%= message %>
-  </div>
+<div>
+  <%= message %>
+</div>
 <% end %>
-
-
-
 <h1>This is my first page</h2>
-	<% link_to 'Sign in', new_employee_path %>
-	<% link_to 'The employee form', new_employee_path %>
-	<%= link_to 'Logout', destroy_employee_session_path, method: :delete  %> 
-	<%= link_to 'The Profile page', profile_page_employees_path() %> 
+<% link_to 'Sign in', new_employee_path %>
+<% link_to 'The employee form', new_employee_path %>
+<%= link_to 'Logout', destroy_employee_session_path, method: :delete  %> 
+<%= link_to 'The Profile page', profile_page_employees_path() %> 
 <h2>Employees</h2>
 <table>
-	<tr>
-	 <th>Name</th>
-	 <th>E-mail</th>
-	 <th>Company</th>
-	 <th>Designation</th>
-	 <th>Phone Num</th>
-	 <th> Employee Details</th>
-	 <th>Active</th>
-	 <th>Password</th>
-	 <th>Picture</th>
-	 <th>Role</th>
-  </tr>
-  <% @employees.each do |employee| %>
-	  <tr>
-	    <td><%= employee.name %></td> 
-			<td><%= employee.email %></td> 
-			<td><%= employee.company %></td> 
-			<td><%= employee.designation %></td> 
-			<td><%= employee.phone_num %></td>
-		  <td> <%= link_to 'Employee Detail', employee %></td> 
-			<td> <% if current_employee.admin? %>
-				      <% if employee.admin? %>Admin 
-				      <% end %>
-			  	 <% end %>
+<tr>
+<th>Name</th>
+<th>E-mail</th>
+<th>Company</th>
+<th>Designation</th>
+<th>Phone Num</th>
+<th> Employee Details</th>
+<th>Active</th>
+<th>Password</th>
+<th>Picture</th>
+<th>Role</th>
+</tr>
+<% @employees.each do |employee| %>
+<tr>
+<td><%= employee.name %></td> 
+<td><%= employee.email %></td> 
+<td><%= employee.company %></td> 
+<td><%= employee.designation %></td> 
+<td><%= employee.phone_num %></td>
+<td> <%= link_to 'Employee Detail', employee %></td> 
+<td> 
+<% if can? :manage, employee %>
+  <% if employee.admin? %>Admin 
+  <% end %>
+<% end %>
+<% if employee.notadmin? %>
+  <% if can? :manage, employee  %>
+  	<div id="active-deactive-link-<%= employee.id %>">
+	    <%if employee.active? %> 
+	    	<%= render "active_deactive_link", employee: employee %>			
+		  <% else %>
+		  	<%= render "active_deactive_link", employee: employee %>		  	
+			<% end %>
+		</div>
+  <% else %> 
+    <% if employee.active == true %>
+      <p>Active</p>
+    <% else %> 
+		  <p>Inactive</p>
+	  <% end %>  
+	<% end %>
+<% end %>
 
-           <% if employee.notadmin? %>
-			  	    <% if current_employee.admin?  %>
-			  	      <%if employee.active?  %>
-			  	          <%= link_to "Active",deactivate_employee_path(employee), method: :post, remote:true %>
-			  	       <% else %>
-			  	          <%= link_to "Deactive",activate_employee_path(employee), method: :post, remote:true %>
-			  	       <% end %>
-		          <% else %> 
-		             <% if employee.active == true %>
-		                <p>Active</p>
-			           <% else %> 
-			             <p>Inactive</p>
-			           <% end %>  
-			        <% end %>
-		       <% end %>
+<% if can? :read && :profie_page, employee %>
+  <% if employee.admin? %>
+     <% if employee.active? %>
+        <p>Active</p>
+			<% else %> 
+			  <p>Inactive</p>
+			<% end %> 
+	<% end %> 
+<% end %>  
 
-         <% if current_employee.notadmin? %>
-           <% if employee.admin? %>
-              <% if employee.active? %>
-		            <p>Active</p>
-			        <% else %> 
-			          <p>Inactive</p>
-			        <% end %> 
-			     <% end %> 
-			  <% end %>  
+</td>
+<td> <%  %></td> 
+<% if employee.avatar.attached? %>
+<td> <%= image_tag url_for(employee.avatar) %></td> 
+<% end %> 
+<td> <%= employee.role %></td>
+</tr> 
+<% end %>  
+<%= will_paginate @employees %>  
+</table>
 
-			</td>
-			<td> <%  %></td> 
-			   <% if employee.avatar.attached? %>
-			<td> <%= image_tag url_for(employee.avatar) %></td> 
-			   <% end %> 
-			 <td> <%= employee.role %></td>
-	  </tr> 
-	<% end %>  
-		<%= will_paginate @employees %>  
-	</table>
+<!-- 
+
+<% @employees.each do |employee| %>
+<tr>
+<td><%= employee.name %></td> 
+<td><%= employee.email %></td> 
+<td><%= employee.company %></td> 
+<td><%= employee.designation %></td> 
+<td><%= employee.phone_num %></td>
+<td> <%= link_to 'Employee Detail', employee %></td> 
+<td> 
+<% if current_employee.admin? %>
+  <% if employee.admin? %>Admin 
+  <% end %>
+<% end %>
+<% if employee.notadmin? %>
+  <% if current_employee.admin?  %>
+  	<div id="active-deactive-link-<%= employee.id %>">
+	    <%if employee.active? %> 
+	    	<%= render "active_deactive_link", employee: employee %>			
+		  <% else %>
+		  	<%= render "active_deactive_link", employee: employee %>		  	
+			<% end %>
+		</div>
+  <% else %> 
+    <% if employee.active == true %>
+      <p>Active</p>
+    <% else %> 
+		  <p>Inactive</p>
+	  <% end %>  
+	<% end %>
+<% end %>
+
+<% if current_employee.notadmin? %>
+  <% if employee.admin? %>
+     <% if employee.active? %>
+        <p>Active</p>
+			<% else %> 
+			  <p>Inactive</p>
+			<% end %> 
+	<% end %> 
+<% end %>  
+
+</td>
+<td> <%  %></td> 
+<% if employee.avatar.attached? %>
+<td> <%= image_tag url_for(employee.avatar) %></td> 
+<% end %> 
+<td> <%= employee.role %></td>
+</tr> 
+<% end %>  
+<%= will_paginate @employees %>  
+</table>
+ -->

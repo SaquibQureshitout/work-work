@@ -1,14 +1,23 @@
 class ApplicationController < ActionController::Base
-	before_action :configure_permitted_parameters, :if => :devise_controller?
+	 before_action  :configure_permitted_parameters, :if => :devise_controller?
 	 helper_method :current_employee
-
-
 
 	def configure_permitted_parameters
 		devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :company, :designation, :phone_num, :avatar, :role])
 		
 		devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email, :password, :company, :designation, :phone_num, :current_password, :avatar])
 	end
+
+	rescue_from CanCan::AccessDenied do |exception|
+		flash[:error] = "Access denied."
+    redirect_to root_url
+  end 
+
+  def current_ability
+	  @current_ability ||= Ability.new(current_employee)
+	end
+
+	
 
 end
 
@@ -48,3 +57,4 @@ end
    # end
  # end
 
+#:can_employee, :can_admin,

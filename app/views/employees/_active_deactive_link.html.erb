@@ -1,0 +1,7 @@
+<%if employee.active? %> 
+  Status: Active
+  <%= link_to "Mark Inactive",deactivate_employee_path(employee), method: :post, remote:true %>
+<% else %>
+  Status: Inactive
+  <%= link_to "Mark Active",activate_employee_path(employee), method: :post, remote:true %>
+<% end %>
